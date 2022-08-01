@@ -50,3 +50,29 @@
 * 메소드는 매번 호출되지만, computed는 의존성들이 변경되지 않는다면 재실행하지 않는다.
 * 화면에 리렌더링이 발생하면 화면에서 랜더링에서 사용되는 모든 메소드는 재실행된다.
 * `state`만 바뀌었음에도 methods로 지정된 함수는 재실행된다.
+
+### 9. watcher
+
+* 특정 값이 변경될 때 이를 감지할 수 있다.
+* 특정 값이 변경되는 시점을 감지하여 필요한 로직을 추가할 수 있다.
+* best practice - 초기화 혹은 타이머 
+
+### 10. method, computed, watch 정리
+
+* method
+    * use with event binding or data binding
+    * data binding - method is executed for every re-render cycle of Component
+    * use for events of data that really needs to be re-evaluated all the time
+* computed
+    * use with data binding
+    * only re-evaluated if one of their used values chaged
+    * use for data that depends on other data
+* watch
+    * not used directly in template
+    * allows you to run any code in reaction to some changed data
+    * use for any non-data update you want to make
+
+### 11. v-bind, v-on shorthand
+
+* v-on은 @로 단축해서 사용 가능
+* v-bind는 :으로 단축해서 사용 가능

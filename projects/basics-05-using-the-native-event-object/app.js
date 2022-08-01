@@ -3,7 +3,21 @@ const app = Vue.createApp({
     return {
       counter: 0,
       name: "",
+      fullname: "",
     };
+  },
+  watch: {
+    // data에서 반환하는 state와 이름이 같아야 한다.
+    name(value, oldValue) {
+      console.log("automatically change", value, oldValue);
+      this.fullname = value;
+    },
+    counter(value, oldValue) {
+      console.log("counter", value, oldValue);
+      if (value > 50) {
+        this.counter = 0;
+      }
+    },
   },
   computed: {
     ouputFullName() {
