@@ -3,7 +3,7 @@
 ### 1. data property in Vue Component
 
 * data를 만들어 반환하면, Vue Component가 커버하는 DOM 트리 영역 내에서 해당 변수를 사용할 수 있다.
-* 이중 중괄호({{ }})를 사용한다.
+* 이중 중괄호({{ }}, interpolation)를 사용한다.
 * `v-bind` 키워드
     * to set value via binding state
     * interpolation sytax 없이 state 사용 가능
