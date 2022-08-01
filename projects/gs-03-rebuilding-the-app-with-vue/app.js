@@ -1,23 +1,23 @@
 // vue js fast start site
 // * <https://vuejs.org/guide/quick-start.html#with-build-tools>
 
-// create app 
+// create app
 Vue.createApp({
   data() {
     return {
       goals: [],
-      enteredValue: ''
-    }
+      enteredValue: "",
+    };
   },
   methods: {
     addGoal() {
-      this.goals.push(this.enteredValue)
-      this.enteredValue = ''
-    }
-  }
+      this.goals.push(this.enteredValue);
+      this.enteredValue = "";
+    },
+  },
 })
-// select mount target
-.mount("#app")
+  // select mount target
+  .mount("#app");
 
 // const buttonEl = document.querySelector('button');
 // const inputEl = document.querySelector('input');
