@@ -1,7 +1,7 @@
 Vue.createApp({
   data() {
     return {
-      className: "user1",
+      className: "",
       visible: true,
       backgroundColor: "",
     };
