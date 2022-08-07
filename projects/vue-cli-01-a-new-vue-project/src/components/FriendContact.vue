@@ -16,6 +16,7 @@
     <li><strong>Phone:</strong>{{ phoneNumber }}</li>
     <li><strong>Email:</strong>{{ emailAddress }}</li>
   </ul>
+  <button @click="this.$emit('delete', id)">Delete</button>
 </template>
 
 <script>
@@ -29,6 +30,12 @@ export default {
   // emits: ["toggle-favorite"],
   emits: {
     "toggle-favorite": function (id) {
+      if (id) {
+        return true;
+      }
+      return false;
+    },
+    delete: function (id) {
       if (id) {
         return true;
       }

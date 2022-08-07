@@ -1,6 +1,7 @@
 <template>
   <section>
     <h2>My Friends</h2>
+    <new-friend @add-contact="addContact"></new-friend>
     <ul>
       <li v-for="friend in friends" :key="friend.id">
         <!-- <friend-contact :friend="friend" /> -->
@@ -13,6 +14,7 @@
           :email-address="friend.email"
           :is-favorite="friend.isFavorite"
           @toggle-favorite="toggleFavoriteStatus"
+          @delete="deleteFriend"
         />
 
         <!-- <FriendContact :friend="friends[0]" /> -->
@@ -52,8 +54,16 @@ export default {
   methods: {
     toggleFavoriteStatus(value) {
       console.log("toggleFavoriteStatus", value);
-      const friend = this.friends.find((friend) => friend.id == value);
+      const friend = this.friends.find((friend) => friend.id === value);
       friend.isFavorite = !friend.isFavorite;
+    },
+    addContact(newFriend) {
+      newFriend.id = Math.random().toString(36).substring(2, 12);
+      newFriend.isFavorite = false;
+      this.friends.push(newFriend);
+    },
+    deleteFriend(id) {
+      this.friends = this.friends.filter((friend) => friend.id !== id);
     },
   },
 };
@@ -90,7 +100,8 @@ header {
   list-style: none;
 }
 
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
@@ -115,6 +126,7 @@ header {
   color: white;
   padding: 0.05rem 1rem;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.26);
+  margin: 0.25rem;
 }
 
 #app button:hover,
