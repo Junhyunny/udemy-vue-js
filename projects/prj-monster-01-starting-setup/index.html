@@ -28,15 +28,28 @@
         <div class="healthbar__value" :style="getPlayerHealth"></div>
       </div>
     </section>
+    <section v-if="gameResult" class="container">
+      <h2>Game Over</h2>
+      <p>{{gameResult}}</p>
+      <button @click="startNewGame">Start New Game</button>
+    </section>
     <section id="controls">
       <button @click="attackMonster">ATTACK</button>
-      <button :disabled="mayUseSpecialAttack" @click="specialAttackMonster">SPECIAL ATTACK</button>
+      <button @click="specialAttackMonster" :disabled="mayUseSpecialAttack">SPECIAL ATTACK</button>
       <button @click="healPlayer">HEAL</button>
-      <button>SURRENDER</button>
+      <button @click="surrender">SURRENDER</button>
     </section>
     <section id="log" class="container">
       <h2>Battle Log</h2>
-      <ul></ul>
+      <ul v-for="(log, index) in battleLogs" :key="index">
+        <span :class="log.actionBy === 'Player' ? 'log--player' : 'log--monster'">{{log.actionBy}}</span>
+        <span v-if="log.actionType === 'Heal'">
+          heals himself for <span class="log--heal">{{log.actionValue}}</span>
+        </span>
+        <span v-else>
+          attacks and deals <span class="log--damage">{{log.actionValue}}</span>
+        </span>
+      </ul>
     </section>
   </div>
 </body>
