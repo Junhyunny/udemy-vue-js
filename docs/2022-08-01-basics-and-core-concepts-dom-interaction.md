@@ -1,4 +1,4 @@
-## SECTION2.Basics & Core Concpets-DOM Interaction with Vue
+## SECTION 2. Basics & Core Concpets-DOM Interaction with Vue
 
 ### 1. data property in Vue Component
 

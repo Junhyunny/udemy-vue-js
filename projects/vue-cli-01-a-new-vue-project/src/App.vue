@@ -2,10 +2,22 @@
   <section>
     <h2>My Friends</h2>
     <ul>
-      <friend-contact :friend="friends[0]" />
-      <friend-contact :friend="friends[1]" />
-      <!-- <FriendContact :friend="friends[0]" /> -->
-      <!-- <FriendContact :friend="friends[1]" /> -->
+      <li v-for="friend in friends" :key="friend.id">
+        <!-- <friend-contact :friend="friend" /> -->
+
+        <!-- props name change automatically cabap case to camel case -->
+        <friend-contact
+          :id="friend.id"
+          :name="friend.name"
+          :phone-number="friend.phone"
+          :email-address="friend.email"
+          :is-favorite="friend.isFavorite"
+          @toggle-favorite="toggleFavoriteStatus"
+        />
+
+        <!-- <FriendContact :friend="friends[0]" /> -->
+        <!-- <FriendContact :friend="friends[1]" /> -->
+      </li>
     </ul>
   </section>
 </template>
@@ -25,15 +37,24 @@ export default {
           name: "Manuel Lorenz",
           phone: "010 1234 3456",
           email: "manuel@localhost.com",
+          isFavorite: true,
         },
         {
           id: "julie",
           name: "Julie Jones",
           phone: "010 5213 6612",
           email: "julie@localhost.com",
+          isFavorite: false,
         },
       ],
     };
+  },
+  methods: {
+    toggleFavoriteStatus(value) {
+      console.log("toggleFavoriteStatus", value);
+      const friend = this.friends.find((friend) => friend.id == value);
+      friend.isFavorite = !friend.isFavorite;
+    },
   },
 };
 </script>

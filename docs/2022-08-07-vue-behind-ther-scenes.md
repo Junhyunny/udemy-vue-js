@@ -1,5 +1,5 @@
 
-## Vue Behind the Scenes
+## SECTION 5. Vue Behind the Scenes
 
 ### 1. Proxy 객체
 

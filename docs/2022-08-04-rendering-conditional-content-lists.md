@@ -1,5 +1,5 @@
 
-## Rendering Conditional Content and Lists
+## SECTION 3. Rendering Conditional Content and Lists
 
 ### 1. v-if / v-show 차이점
 
