@@ -2,11 +2,14 @@
   <h2>Manage Goals</h2>
   <input type="text" ref="goal" />
   <button @click="setGoal">Set Goal</button>
-  <error-alert v-if="inputIsInvalid">
-    <h2>Input is invalid!</h2>
-    <p>Please enter at least a few characters...</p>
-    <button @click="confirmError">Ok</button>
-  </error-alert>
+  <!-- provided by vue -->
+  <teleport to="#dim">
+    <error-alert v-if="inputIsInvalid">
+      <h2>Input is invalid!</h2>
+      <p>Please enter at least a few characters...</p>
+      <button @click="confirmError">Ok</button>
+    </error-alert>
+  </teleport>
 </template>
 
 <script>

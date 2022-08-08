@@ -1,4 +1,6 @@
 <template>
+  <!-- vue2 에서는 template 하위에 하나의 root element가 필요했다. -->
+  <!-- vue3 에서는 template 하위에 반드시 하나의 root element가 필요 없다. -->
   <div>
     <the-header></the-header>
     <button @click="setSelectedComponent('active-goals')">Active Goals</button>
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-import TheHeader from "./components/TheHeader.vue";
+import TheHeader from "./components/layout/TheHeader.vue";
 // import BadgeList from "./components/BadgeList.vue";
 // import UserInfo from "./components/UserInfo.vue";
 // import CourseGoals from "./components/CourseGoal.vue";
