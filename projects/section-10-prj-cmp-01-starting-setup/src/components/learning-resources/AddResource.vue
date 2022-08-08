@@ -23,22 +23,24 @@
       </div>
     </form>
   </base-card>
-  <base-dialog
-    v-if="openErrorDialog"
-    @close="closeErrorDialog"
-    title="Invalid Input"
-  >
-    <template #default>
-      <p>Unfortunately, at least one input value is invalid.</p>
-      <p>
-        Please check all inputs and make sure you enter at least a few
-        characters into each input field.
-      </p>
-    </template>
-    <template #actions>
-      <base-button @click="closeErrorDialog">Ok</base-button>
-    </template>
-  </base-dialog>
+  <teleport to="#dim">
+    <base-dialog
+      v-if="openErrorDialog"
+      @close="closeErrorDialog"
+      title="Invalid Input"
+    >
+      <template #default>
+        <p>Unfortunately, at least one input value is invalid.</p>
+        <p>
+          Please check all inputs and make sure you enter at least a few
+          characters into each input field.
+        </p>
+      </template>
+      <template #actions>
+        <base-button @click="closeErrorDialog">Ok</base-button>
+      </template>
+    </base-dialog>
+  </teleport>
 </template>
 
 <script>

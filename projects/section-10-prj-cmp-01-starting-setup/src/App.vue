@@ -33,6 +33,7 @@ export default {
     return {
       resources: this.storedResources,
       addResource: this.addResource,
+      removeResource: this.removeResource,
     };
   },
   methods: {
@@ -44,6 +45,17 @@ export default {
         link,
       };
       this.storedResources.unshift(newResource);
+    },
+    removeResource(resourceId) {
+      console.log('removeResource', resourceId);
+      // not work - cause this proxy component observed first matched stored array
+      // this.storedResources = this.storedResources.filter(
+      //   (resource) => resource.id !== resourceId
+      // );
+      const index = this.storedResources.findIndex(
+        (resource) => resource.id === resourceId
+      );
+      this.storedResources.splice(index, 1);
     },
   },
 };
