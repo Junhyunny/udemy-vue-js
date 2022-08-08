@@ -12,6 +12,7 @@ export default {
 
 <style scoped>
 button {
+  margin-left: 0.75rem;
   padding: 0.75rem 1.5rem;
   font-family: inherit;
   background-color: #3a0061;
