@@ -32,7 +32,19 @@ export default {
   provide() {
     return {
       resources: this.storedResources,
+      addResource: this.addResource,
     };
+  },
+  methods: {
+    addResource(title, description, link) {
+      const newResource = {
+        id: new Date().toISOString(),
+        title,
+        description,
+        link,
+      };
+      this.storedResources.unshift(newResource);
+    },
   },
 };
 </script>
