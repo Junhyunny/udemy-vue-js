@@ -39,21 +39,14 @@ dialog {
   border: none;
   /* animation: modal 0.5s forwards; */
 }
-.modal-enter-from {
-}
 .modal-enter-active {
   animation: modal 0.5s forwards;
 }
-.modal-enter-to {
-}
 
-.modal-leave-from {
-}
 .modal-leave-active {
   animation: modal-out 0.5s forwards;
 }
-.modal-leave-to {
-}
+
 @keyframes modal {
   from {
     opacity: 0;

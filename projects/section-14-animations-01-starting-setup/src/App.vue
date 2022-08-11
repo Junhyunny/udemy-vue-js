@@ -256,18 +256,10 @@ button:active {
   }
 }
 
-.page-enter-from {
-}
 .page-enter-active {
   animation: slide-fade 0.4s;
 }
-.page-enter-to {
-}
-.page-leave-from {
-}
 .page-leave-active {
   animation: slide-fade 0.4s forwards;
-}
-.page-leave-to {
 }
 </style>
