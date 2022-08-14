@@ -17,9 +17,9 @@ const store = createStore({
   },
   mutations: {
     // state = 현재 상태
-    increaseCount(state) {
-      console.log('increaseCount');
-      state.count++;
+    increaseCount(state, payload) {
+      console.log('increaseCount', payload);
+      state.count = state.count + payload.value;
     },
   },
 });

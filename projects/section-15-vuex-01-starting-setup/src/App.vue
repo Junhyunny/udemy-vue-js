@@ -1,7 +1,7 @@
 <template>
   <base-container title="Vuex">
     <the-counter></the-counter>
-    <button @click="increase">Add 1</button>
+    <button @click="increase">Add 4</button>
     <change-count></change-count>
   </base-container>
 </template>
@@ -20,7 +20,7 @@ export default {
   methods: {
     increase() {
       // 스토어 안에 존재하는 state를 직접 변경하는 것은 좋은 방법이 아니다.
-      this.$store.commit('increaseCount');
+      this.$store.commit('increaseCount', { value: 4 });
     },
   },
 };
