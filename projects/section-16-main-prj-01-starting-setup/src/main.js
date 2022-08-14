@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
 import router from './router';
 
-import CoachesList from './pages/coaches/CoachesList.vue';
+import App from './App.vue';
 
-const app = createApp(CoachesList);
+const app = createApp(App);
 
 app.use(router);
 
