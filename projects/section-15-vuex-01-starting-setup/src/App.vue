@@ -22,8 +22,10 @@ export default {
   },
   methods: {
     increase() {
+      this.$store.dispatch('increase');
+      this.$store.dispatch('increment', { value: 2 });
       // 스토어 안에 존재하는 state를 직접 변경하는 것은 좋은 방법이 아니다.
-      this.$store.commit('increaseCount', { value: 4 });
+      // this.$store.commit('increaseCount', { value: 4 });
     },
   },
 };

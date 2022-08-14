@@ -26,10 +26,17 @@ const store = createStore({
       return finalCounter;
     },
   },
+  // asyncronous code
   actions: {
     increase(context) {
-      console.log('increase');
-      context.commit('increaseCount');
+      // context 에 있는 state를 이용해서 값을 변경하지말고 mutations을 이용해야한다.
+      console.log('increase', context);
+      setTimeout(() => {
+        context.commit('increaseCount', { value: 2 });
+      }, 2000);
+    },
+    increment(context, payload) {
+      context.commit('increaseCount', payload);
     },
   },
   mutations: {
