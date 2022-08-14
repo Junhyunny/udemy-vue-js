@@ -6,7 +6,7 @@
     </h3>
     <ul>
       <cart-item
-        v-for="item in cart.items"
+        v-for="item in products"
         :key="item.productId"
         :prod-id="item.productId"
         :title="item.title"
@@ -29,7 +29,7 @@ export default {
     CartItem,
   },
   computed: {
-    ...mapGetters('cart', ['cart']),
+    ...mapGetters('cart', ['cart', 'products']),
     cartTotal() {
       return this.cart.total.toFixed(2);
     },
