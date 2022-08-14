@@ -20,8 +20,8 @@ export default {
       isLoggedIn: this.isLoggedIn,
       // products: this.products,
       cart: this.cart,
-      addProductToCart: this.addProductToCart,
-      removeProductFromCart: this.removeProductFromCart,
+      // addProductToCart: this.addProductToCart,
+      // removeProductFromCart: this.removeProductFromCart,
       login: this.login,
       logout: this.logout,
     };
