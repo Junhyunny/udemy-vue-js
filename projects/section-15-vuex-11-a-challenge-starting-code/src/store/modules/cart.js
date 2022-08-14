@@ -6,6 +6,15 @@ export default {
     cart(state) {
       return state;
     },
+    products(state) {
+      return state.items;
+    },
+    totalSum(state) {
+      return state.total;
+    },
+    quantity(state) {
+      return state.qty;
+    },
   },
   mutations: {
     addProductToCart(state, payload) {
@@ -35,6 +44,14 @@ export default {
       state.items.splice(productInCartIndex, 1);
       state.qty -= prodData.qty;
       state.total -= prodData.price * prodData.qty;
+    },
+  },
+  actions: {
+    addProductToCart(context, payload) {
+      context.commit('addProductToCart', payload);
+    },
+    removeProductFromCart(context, payload) {
+      context.commit('removeProductFromCart', payload);
     },
   },
 };

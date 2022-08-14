@@ -19,7 +19,7 @@ export default {
     return {
       isLoggedIn: this.isLoggedIn,
       // products: this.products,
-      cart: this.cart,
+      // cart: this.cart,
       // addProductToCart: this.addProductToCart,
       // removeProductFromCart: this.removeProductFromCart,
       login: this.login,
@@ -28,10 +28,10 @@ export default {
   },
   methods: {
     addProductToCart(productData) {
-      this.$store.commit('addProductToCart', { productData });
+      this.$store.dispatch('addProductToCart', { productData });
     },
     removeProductFromCart(prodId) {
-      this.$store.commit('removeProductFromCart', { prodId });
+      this.$store.dispatch('removeProductFromCart', { prodId });
     },
     login() {
       this.isLoggedIn = true;
