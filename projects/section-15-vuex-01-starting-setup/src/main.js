@@ -7,6 +7,7 @@ const store = createStore({
   state() {
     return {
       count: 0,
+      isLoggIn: false,
     };
   },
   getters: {
@@ -25,6 +26,9 @@ const store = createStore({
       }
       return finalCounter;
     },
+    userIsAuthenticated(state) {
+      return state.isLoggIn;
+    },
   },
   // asyncronous code
   actions: {
@@ -38,12 +42,21 @@ const store = createStore({
     increment(context, payload) {
       context.commit('increaseCount', payload);
     },
+    login(context) {
+      context.commit('setAuth', { isAuth: true });
+    },
+    logout(context) {
+      context.commit('setAuth', { isAuth: false });
+    },
   },
   mutations: {
     // state = 현재 상태
     increaseCount(state, payload) {
       console.log('increaseCount', payload);
       state.count = state.count + payload.value;
+    },
+    setAuth(state, payload) {
+      state.isLoggIn = payload.isAuth;
     },
   },
 });

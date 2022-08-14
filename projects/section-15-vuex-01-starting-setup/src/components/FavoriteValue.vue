@@ -4,7 +4,7 @@
 </template>
 
 <script>
-// mapGetters
+// mapGetters를 사용한 값 변경
 import { mapGetters } from 'vuex';
 
 export default {
