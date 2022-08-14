@@ -31,8 +31,14 @@ export default {
     ...mapGetters(['userIsAuthenticated']),
   },
   methods: {
-    ...mapActions(['increase', 'increment']),
-    ...mapActions({
+    // namespaced 사용 적용 방법과 사용 방법
+    ...mapActions('counterModule', ['increase', 'increment']),
+    // ...mapActions({
+    //   // change name, propsName: 'getterName'
+    //   inc: 'counterModule/increase',
+    //   hoho: 'counterModule/increment',
+    // }),
+    ...mapActions('counterModule', {
       // change name, propsName: 'getterName'
       inc: 'increase',
       hoho: 'increment',

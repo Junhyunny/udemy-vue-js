@@ -9,7 +9,7 @@ export default {
       //   this.$store.commit('increaseCount', {value: 2});
       // 다른 방법으로 전달하는 commit
       this.$store.commit({
-        type: 'increaseCount',
+        type: 'counterModule/increaseCount',
         value: 2,
       });
     },
