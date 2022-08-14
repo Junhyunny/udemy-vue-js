@@ -1,4 +1,5 @@
 export default {
+  namespaced: true,
   state() {
     return { items: [], total: 0, qty: 0 };
   },

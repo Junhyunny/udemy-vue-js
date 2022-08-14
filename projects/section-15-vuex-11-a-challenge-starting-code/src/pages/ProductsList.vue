@@ -22,7 +22,7 @@ import { mapGetters } from 'vuex';
 export default {
   // inject: ['products'],
   computed: {
-    ...mapGetters(['products']),
+    ...mapGetters('product', ['products']),
   },
   components: {
     ProductItem,

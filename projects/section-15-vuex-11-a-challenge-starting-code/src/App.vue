@@ -27,12 +27,12 @@ export default {
     };
   },
   methods: {
-    addProductToCart(productData) {
-      this.$store.dispatch('addProductToCart', { productData });
-    },
-    removeProductFromCart(prodId) {
-      this.$store.dispatch('removeProductFromCart', { prodId });
-    },
+    // addProductToCart(productData) {
+    //   this.$store.dispatch('cart/addProductToCart', { productData });
+    // },
+    // removeProductFromCart(prodId) {
+    //   this.$store.dispatch('cart/removeProductFromCart', { prodId });
+    // },
     login() {
       this.isLoggedIn = true;
     },
