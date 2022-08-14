@@ -18,8 +18,12 @@
       </ul>
     </nav>
     <div>
-      <button v-if="!isLoggedIn" @click="login">Login</button>
-      <button v-if="isLoggedIn" @click="logout">Logout</button>
+      <button v-if="!isLoggedIn" @click="$store.dispatch('login')">
+        Login
+      </button>
+      <button v-if="isLoggedIn" @click="$store.dispatch('logout')">
+        Logout
+      </button>
     </div>
   </header>
 </template>
@@ -28,9 +32,10 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  inject: ['isLoggedIn', 'login', 'logout'],
+  // inject: ['isLoggedIn', 'login', 'logout'],
   computed: {
     ...mapGetters('cart', ['cart', 'quantity']),
+    ...mapGetters(['isLoggedIn']),
   },
 };
 </script>
