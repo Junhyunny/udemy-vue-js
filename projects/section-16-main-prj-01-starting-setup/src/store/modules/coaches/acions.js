@@ -18,30 +18,40 @@ export default {
         body: JSON.stringify(coach),
       }
     );
-    const responseData = await response.json();
-    if (!responseData.ok) {
+    if (!response.ok) {
       // error handling
+      throw new Error(response.message || 'Failed to fetch');
     }
+    const responseData = await response.json();
     console.log(responseData);
     context.commit('registerCoach', { coach: responseData });
   },
   async fetchCoaches(context) {
-    const response = await fetch(
-      `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json`
-    );
-    const responseData = await response.json();
-    if (!responseData.ok) {
-      // error handling
-    }
-    const coaches = [];
-    for (const key in responseData) {
-      coaches.push({
-        ...responseData[key],
-        id: key,
+    console.log(context);
+    // using global mutation in local mutation
+    // https://stackoverflow.com/questions/44618440/vuex-how-to-commit-a-global-mutation-in-a-module-action
+    context.commit('startLoading', null, { root: true });
+    try {
+      const response = await fetch(
+        `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.`
+      );
+      if (!response.ok) {
+        // error handling
+        throw new Error(response.message || 'Failed to fetch');
+      }
+      const responseData = await response.json();
+      const coaches = [];
+      for (const key in responseData) {
+        coaches.push({
+          ...responseData[key],
+          id: key,
+        });
+      }
+      context.commit('setCoaches', {
+        coaches,
       });
+    } finally {
+      context.commit('endLoading', null, { root: true });
     }
-    context.commit('setCoaches', {
-      coaches,
-    });
   },
 };

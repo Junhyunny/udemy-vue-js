@@ -9,11 +9,22 @@ const store = createStore({
     requests,
   },
   state() {
-    return { userId: 'c3' };
+    return { userId: 'c3', isLoading: false };
   },
   getters: {
     userId(state) {
       return state.userId;
+    },
+    isLoading(state) {
+      return state.isLoading;
+    },
+  },
+  mutations: {
+    startLoading(state) {
+      state.isLoading = true;
+    },
+    endLoading(state) {
+      state.isLoading = false;
     },
   },
 });

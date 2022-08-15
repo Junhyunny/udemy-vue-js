@@ -1,4 +1,8 @@
 <template>
+  <!-- !! make truthy to real boolean -->
+  <base-dialog :show="!!error" title="Error Message" @close="closeModal">
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <section>
       <coach-filter @change-filter="setFilter"></coach-filter>
@@ -6,12 +10,15 @@
     <section>
       <base-card>
         <div class="controls">
-          <base-button mode="outline">Refresh</base-button>
+          <base-button mode="outline" @click="fetchCoaches">
+            Refresh
+          </base-button>
           <base-button v-if="!isCoach" link to="/register">
             Register as Coach
           </base-button>
         </div>
-        <ul v-if="hasCoaches">
+        <base-spinner v-if="isLoading"></base-spinner>
+        <ul v-else-if="hasCoaches">
           <coach-item
             v-for="coach in filteredCoaches"
             :key="coach.id"
@@ -32,12 +39,16 @@
 <script>
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from '../../components/coaches/CoachFilter.vue';
+import BaseSpinner from '../../components/ui/BaseSpinner.vue';
+import BaseDialog from '../../components/ui/BaseDialog.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
     CoachItem,
     CoachFilter,
+    BaseSpinner,
+    BaseDialog,
   },
   data() {
     return {
@@ -46,12 +57,14 @@ export default {
         backend: true,
         career: true,
       },
+      error: null,
     };
   },
   mounted() {
-    this.$store.dispatch('coaches/fetchCoaches');
+    this.fetchCoaches();
   },
   computed: {
+    ...mapGetters(['isLoading']),
     ...mapGetters('coaches', ['hasCoaches', 'isCoach']),
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
@@ -72,6 +85,17 @@ export default {
   methods: {
     setFilter(updatedFilter) {
       this.activeFilters = updatedFilter;
+    },
+    async fetchCoaches() {
+      try {
+        await this.$store.dispatch('coaches/fetchCoaches');
+      } catch (error) {
+        // console.log(error);
+        this.error = error.message;
+      }
+    },
+    closeModal() {
+      this.error = null;
     },
   },
 };
