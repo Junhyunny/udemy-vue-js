@@ -1,4 +1,7 @@
 <template>
+  <base-dialog :show="!!error" title="Error Message" @close="closeModal">
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <base-card>
       <header>
@@ -23,11 +26,17 @@
 <script>
 import RequestItem from '../../components/requests/RequestItem.vue';
 import BaseSpinner from '../../components/ui/BaseSpinner.vue';
+import BaseDialog from '../../components/ui/BaseDialog.vue';
 
 export default {
-  components: { RequestItem, BaseSpinner },
+  data() {
+    return {
+      error: null,
+    };
+  },
+  components: { RequestItem, BaseSpinner, BaseDialog },
   created() {
-    this.$store.dispatch('requests/fetchContacts');
+    this.fetchContacts();
   },
   computed: {
     receivedRequests() {
@@ -38,6 +47,18 @@ export default {
     },
     isLoading() {
       return this.$store.getters.isLoading;
+    },
+  },
+  methods: {
+    async fetchContacts() {
+      try {
+        await this.$store.dispatch('requests/fetchContacts');
+      } catch (error) {
+        this.error = error;
+      }
+    },
+    closeModal() {
+      this.error = null;
     },
   },
 };

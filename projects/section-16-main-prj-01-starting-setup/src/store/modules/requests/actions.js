@@ -1,7 +1,6 @@
 export default {
   async contactCoach(context, payload) {
     const request = {
-      coachId: payload.coachId,
       userEmail: payload.email,
       message: payload.message,
     };
@@ -22,6 +21,7 @@ export default {
     }
     const responseData = await response.json();
     request.id = responseData.name;
+    request.coachId = payload.coachId;
     context.commit('addRequest', { request });
   },
   async fetchContacts(context) {
@@ -40,6 +40,8 @@ export default {
       for (const key in responseData) {
         requests.push({
           ...responseData[key],
+          id: key,
+          coachId: coachId,
         });
       }
       context.commit('setRequests', { requests });
