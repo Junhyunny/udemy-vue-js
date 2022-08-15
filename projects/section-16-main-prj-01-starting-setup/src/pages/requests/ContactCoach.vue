@@ -1,4 +1,7 @@
 <template>
+  <base-dialog :show="!!error" title="Error Message" @close="closeModal">
+    <p>{{ error }}</p>
+  </base-dialog>
   <form @submit.prevent="submitForm">
     <div class="form-control">
       <label for="email">Your E-Mail</label>
@@ -23,16 +26,22 @@
 </template>
 
 <script>
+import BaseDialog from '../../components/ui/BaseDialog.vue';
+
 export default {
+  components: {
+    BaseDialog,
+  },
   data() {
     return {
       email: '',
       message: '',
       formIsValid: true,
+      error: null,
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
       if (
         this.email === '' ||
@@ -42,11 +51,19 @@ export default {
         this.formIsValid = false;
         return;
       }
-      this.$store.dispatch('requests/contactCoach', {
-        email: this.email,
-        message: this.message,
-        coachId: this.$route.params.id,
-      });
+      try {
+        await this.$store.dispatch('requests/contactCoach', {
+          email: this.email,
+          message: this.message,
+          coachId: this.$route.params.id,
+        });
+        this.$router.back();
+      } catch (error) {
+        this.error = error.message + ' Retry again.';
+      }
+    },
+    closeModal() {
+      this.error = null;
       this.$router.back();
     },
   },

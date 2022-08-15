@@ -33,7 +33,7 @@ export default {
     context.commit('startLoading', null, { root: true });
     try {
       const response = await fetch(
-        `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.`
+        `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/coaches.json`
       );
       if (!response.ok) {
         // error handling
