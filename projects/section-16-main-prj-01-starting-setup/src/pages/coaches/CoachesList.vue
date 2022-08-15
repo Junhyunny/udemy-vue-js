@@ -48,6 +48,9 @@ export default {
       },
     };
   },
+  mounted() {
+    this.$store.dispatch('coaches/fetchCoaches');
+  },
   computed: {
     ...mapGetters('coaches', ['hasCoaches', 'isCoach']),
     filteredCoaches() {
