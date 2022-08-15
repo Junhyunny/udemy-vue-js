@@ -21,6 +21,8 @@ const router = createRouter({
     {
       path: '/coaches/:id',
       component: CoachDetail,
+      // 경로에 있는 id를 props로 사용
+      props: true,
       children: [
         {
           path: 'contact',
