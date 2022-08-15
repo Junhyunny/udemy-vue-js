@@ -1,39 +1,41 @@
 <template>
-  <!-- !! make truthy to real boolean -->
-  <base-dialog :show="!!error" title="Error Message" @close="closeModal">
-    <p>{{ error }}</p>
-  </base-dialog>
-  <section>
+  <div>
+    <!-- !! make truthy to real boolean -->
+    <base-dialog :show="!!error" title="Error Message" @close="closeModal">
+      <p>{{ error }}</p>
+    </base-dialog>
     <section>
-      <coach-filter @change-filter="setFilter"></coach-filter>
+      <section>
+        <coach-filter @change-filter="setFilter"></coach-filter>
+      </section>
+      <section>
+        <base-card>
+          <div class="controls">
+            <base-button mode="outline" @click="fetchCoaches(true)">
+              Refresh
+            </base-button>
+            <base-button v-if="!isCoach" link to="/register">
+              Register as Coach
+            </base-button>
+          </div>
+          <base-spinner v-if="isLoading"></base-spinner>
+          <ul v-else-if="hasCoaches">
+            <coach-item
+              v-for="coach in filteredCoaches"
+              :key="coach.id"
+              :id="coach.id"
+              :first-name="coach.firstName"
+              :last-name="coach.lastName"
+              :rate="coach.hourlyRate"
+              :areas="coach.areas"
+            >
+            </coach-item>
+          </ul>
+          <h3 v-else>No coaches found.</h3>
+        </base-card>
+      </section>
     </section>
-    <section>
-      <base-card>
-        <div class="controls">
-          <base-button mode="outline" @click="fetchCoaches(true)">
-            Refresh
-          </base-button>
-          <base-button v-if="!isCoach" link to="/register">
-            Register as Coach
-          </base-button>
-        </div>
-        <base-spinner v-if="isLoading"></base-spinner>
-        <ul v-else-if="hasCoaches">
-          <coach-item
-            v-for="coach in filteredCoaches"
-            :key="coach.id"
-            :id="coach.id"
-            :first-name="coach.firstName"
-            :last-name="coach.lastName"
-            :rate="coach.hourlyRate"
-            :areas="coach.areas"
-          >
-          </coach-item>
-        </ul>
-        <h3 v-else>No coaches found.</h3>
-      </base-card>
-    </section>
-  </section>
+  </div>
 </template>
 
 <script>
