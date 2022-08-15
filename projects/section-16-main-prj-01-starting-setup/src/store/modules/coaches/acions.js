@@ -26,8 +26,11 @@ export default {
     console.log(responseData);
     context.commit('registerCoach', { coach: responseData });
   },
-  async fetchCoaches(context) {
+  async fetchCoaches(context, paylaod) {
     console.log(context);
+    if (!context.getters.shouldUpdate && !paylaod.forceRefresh) {
+      return;
+    }
     // using global mutation in local mutation
     // https://stackoverflow.com/questions/44618440/vuex-how-to-commit-a-global-mutation-in-a-module-action
     context.commit('startLoading', null, { root: true });
@@ -50,6 +53,7 @@ export default {
       context.commit('setCoaches', {
         coaches,
       });
+      context.commit('setFetchTimestamp');
     } finally {
       context.commit('endLoading', null, { root: true });
     }
