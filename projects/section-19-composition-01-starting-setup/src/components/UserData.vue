@@ -1,10 +1,11 @@
 <template>
   <h2>{{ userName }}</h2>
   <h3>{{ age }}</h3>
+  <h3>{{ providedAge }}</h3>
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 export default {
   props: ['firstName', 'lastName', 'age'],
@@ -13,8 +14,14 @@ export default {
     const userName = computed(function () {
       return props.firstName + ' ' + props.lastName;
     });
+
+    // _context.emit(); // this.$emit()
+
+    const providedAge = inject('providedAge');
+
     return {
       userName,
+      providedAge,
     };
   },
   // computed: {

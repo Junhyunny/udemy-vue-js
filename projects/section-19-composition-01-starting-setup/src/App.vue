@@ -26,7 +26,16 @@
 
 <script>
 // composition api
-import { ref, reactive, isReactive, isRef, toRefs, computed, watch } from 'vue';
+import {
+  ref,
+  reactive,
+  isReactive,
+  isRef,
+  toRefs,
+  computed,
+  watch,
+  provide,
+} from 'vue';
 import UserData from './components/UserData.vue';
 
 export default {
@@ -126,6 +135,9 @@ export default {
       // middleName.value = this.$refs.middleNameInput.value;
       middleName.value = middleNameInput.value.value;
     }
+
+    const providedAge = ref(45);
+    provide('providedAge', providedAge);
 
     return {
       // userName: user.value.userName,
