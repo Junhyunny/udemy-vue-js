@@ -80,7 +80,10 @@ export default {
       try {
         // send http request
         if (this.mode === 'login') {
-          // ...
+          await this.$store.dispatch('login', {
+            email: this.email,
+            password: this.password,
+          });
         } else {
           await this.$store.dispatch('signup', {
             email: this.email,
