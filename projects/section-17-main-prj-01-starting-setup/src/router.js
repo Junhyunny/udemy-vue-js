@@ -8,6 +8,8 @@ import RequestsReceived from './pages/requests/RequestsReceived.vue';
 import UserAuth from './pages/auth/UserAuth.vue';
 import NotFound from './pages/NotFound.vue';
 
+import store from './store';
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -34,14 +36,23 @@ const router = createRouter({
     {
       path: '/register',
       component: CoachRegistration,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/requests',
       component: RequestsReceived,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/auth',
       component: UserAuth,
+      meta: {
+        requiresUnauth: true,
+      },
     },
     // 찾지 못하는 경로를 만나는 경우
     {
@@ -49,6 +60,17 @@ const router = createRouter({
       component: NotFound,
     },
   ],
+});
+
+// authenticate
+router.beforeEach(function (to, _from, next) {
+  if (to.meta?.requiresAuth && !store.getters.isAuthenticated) {
+    next('/auth');
+  } else if (to.meta?.requiresUnauth && store.getters.isAuthenticated) {
+    next('/coaches');
+  } else {
+    next();
+  }
 });
 
 export default router;

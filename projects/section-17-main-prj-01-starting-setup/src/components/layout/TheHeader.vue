@@ -25,6 +25,9 @@ export default {
       return this.$store.getters.isAuthenticated;
     },
   },
+  created() {
+    this.$store.dispatch('autoLogin');
+  },
   methods: {
     logout() {
       this.$store.dispatch('logout');

@@ -14,7 +14,11 @@
             <base-button mode="outline" @click="fetchCoaches(true)">
               Refresh
             </base-button>
-            <base-button link to="/auth" v-if="!isAuthenticated">
+            <base-button
+              link
+              to="/auth?redirect=register"
+              v-if="!isAuthenticated"
+            >
               Login
             </base-button>
             <base-button

@@ -79,20 +79,18 @@ export default {
       }
       try {
         // send http request
+        const user = {
+          email: this.email,
+          password: this.password,
+        };
         if (this.mode === 'login') {
-          await this.$store.dispatch('login', {
-            email: this.email,
-            password: this.password,
-          });
+          await this.$store.dispatch('login', user);
         } else {
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password,
-          });
+          await this.$store.dispatch('signup', user);
         }
-        this.$router.replace('/coaches');
+        const redirectUrl = `/${this.$route.query.redirect || 'coaches'}`;
+        this.$router.replace(redirectUrl);
       } catch (error) {
-        console.log(error);
         this.error = error.message || 'Failed to authenticate, try later.';
       }
     },
