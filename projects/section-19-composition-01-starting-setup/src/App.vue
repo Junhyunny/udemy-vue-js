@@ -9,10 +9,17 @@
     <button @click="changeAge(4)">Change Age</button>
     <div>
       <p>{{ fullName }}</p>
+      <user-data
+        :first-name="firstName"
+        :last-name="lastName"
+        :age="age"
+      ></user-data>
     </div>
     <div>
       <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Middle Name" ref="middleNameInput" />
       <input type="text" placeholder="Last Name" @input="setLastName" />
+      <button @click="setMiddleName">Set Middle Name</button>
     </div>
   </section>
 </template>
@@ -20,8 +27,12 @@
 <script>
 // composition api
 import { ref, reactive, isReactive, isRef, toRefs, computed, watch } from 'vue';
+import UserData from './components/UserData.vue';
 
 export default {
+  components: {
+    UserData,
+  },
   // enable on vue3
   setup() {
     // ref call inside setup
@@ -84,6 +95,8 @@ export default {
     }
 
     const firstName = ref('');
+    const middleName = ref('');
+    const middleNameInput = ref(null);
     const lastName = ref('');
 
     // age change
@@ -104,8 +117,15 @@ export default {
     }
 
     const fullName = computed(function () {
-      return firstName.value + ' ' + lastName.value;
+      return firstName.value + ' ' + middleName.value + ' ' + lastName.value;
     });
+
+    function setMiddleName() {
+      // console.log('setMiddleName', middleNameInput.value.value);
+      // do not work
+      // middleName.value = this.$refs.middleNameInput.value;
+      middleName.value = middleNameInput.value.value;
+    }
 
     return {
       // userName: user.value.userName,
@@ -120,6 +140,8 @@ export default {
       setFirstName,
       setLastName,
       fullName,
+      middleNameInput,
+      setMiddleName,
     };
   },
   // data() {
