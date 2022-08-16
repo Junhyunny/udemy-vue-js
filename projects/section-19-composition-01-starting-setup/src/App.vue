@@ -19,7 +19,7 @@
 
 <script>
 // composition api
-import { ref, reactive, isReactive, isRef, toRefs, computed } from 'vue';
+import { ref, reactive, isReactive, isRef, toRefs, computed, watch } from 'vue';
 
 export default {
   // enable on vue3
@@ -85,6 +85,15 @@ export default {
 
     const firstName = ref('');
     const lastName = ref('');
+
+    // age change
+    watch(refsUser.age, function (newValue, oldValue) {
+      console.log('refsUser.age watch for age', newValue, oldValue);
+    });
+
+    watch([firstName, lastName], function (newValues, oldValues) {
+      console.log('[firstName, lastName] watch for age', newValues, oldValues);
+    });
 
     function setFirstName(event) {
       this.firstName = event.target.value;
