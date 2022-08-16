@@ -15,11 +15,11 @@ export default {
         body: JSON.stringify(request),
       }
     );
+    const responseData = await response.json();
     if (!response.ok) {
       // error handling
-      throw new Error(response.message || 'Failed to send request.');
+      throw new Error(responseData.error.message || 'Fail to send request');
     }
-    const responseData = await response.json();
     request.id = responseData.name;
     request.coachId = payload.coachId;
     context.commit('addRequest', { request });
@@ -31,11 +31,13 @@ export default {
       const response = await fetch(
         `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/contacts/${coachId}.json`
       );
+      const responseData = await response.json();
       if (!response.ok) {
         // error handling
-        throw new Error(response.message || 'Failed to send request.');
+        throw new Error(
+          responseData.error.message || 'Failed to send request.'
+        );
       }
-      const responseData = await response.json();
       const requests = [];
       for (const key in responseData) {
         requests.push({
