@@ -59,4 +59,7 @@ export default {
       context.commit('endLoading', null, { root: true });
     }
   },
+  logout(context) {
+    context.commit('logout');
+  },
 };

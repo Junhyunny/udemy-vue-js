@@ -14,7 +14,14 @@
             <base-button mode="outline" @click="fetchCoaches(true)">
               Refresh
             </base-button>
-            <base-button v-if="!isCoach" link to="/register">
+            <base-button link to="/auth" v-if="!isAuthenticated">
+              Login
+            </base-button>
+            <base-button
+              v-if="!isCoach && !isLoading && isAuthenticated"
+              link
+              to="/register"
+            >
               Register as Coach
             </base-button>
           </div>
@@ -66,7 +73,7 @@ export default {
     this.fetchCoaches();
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading', 'isAuthenticated']),
     ...mapGetters('coaches', ['hasCoaches', 'isCoach']),
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
