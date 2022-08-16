@@ -7,12 +7,19 @@
     <p>{{ user }}</p>
     <p>{{ reactiveUser }}</p>
     <button @click="changeAge(4)">Change Age</button>
+    <div>
+      <p>{{ fullName }}</p>
+    </div>
+    <div>
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" @input="setLastName" />
+    </div>
   </section>
 </template>
 
 <script>
 // composition api
-import { ref, reactive, isReactive, isRef, toRefs } from 'vue';
+import { ref, reactive, isReactive, isRef, toRefs, computed } from 'vue';
 
 export default {
   // enable on vue3
@@ -75,6 +82,22 @@ export default {
     function changeAge(value) {
       this.age += value;
     }
+
+    const firstName = ref('');
+    const lastName = ref('');
+
+    function setFirstName(event) {
+      this.firstName = event.target.value;
+    }
+
+    function setLastName(event) {
+      this.lastName = event.target.value;
+    }
+
+    const fullName = computed(function () {
+      return firstName.value + ' ' + lastName.value;
+    });
+
     return {
       // userName: user.value.userName,
       // age: user.value.age,
@@ -83,6 +106,11 @@ export default {
       user,
       reactiveUser,
       changeAge,
+      firstName,
+      lastName,
+      setFirstName,
+      setLastName,
+      fullName,
     };
   },
   // data() {
