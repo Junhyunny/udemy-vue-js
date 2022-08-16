@@ -6,10 +6,13 @@
     <h3>{{ age }}</h3>
     <p>{{ user }}</p>
     <p>{{ reactiveUser }}</p>
-    <button @click="changeAge(4)">Change Age</button>
+    <button @click="changeAge(Math.floor(Math.random() * 10))">
+      Change Age
+    </button>
     <div>
       <p>{{ fullName }}</p>
       <user-data
+        v-if="age % 2 === 0"
         :first-name="firstName"
         :last-name="lastName"
         :age="age"
