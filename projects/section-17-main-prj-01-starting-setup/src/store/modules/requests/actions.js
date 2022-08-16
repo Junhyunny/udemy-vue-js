@@ -29,7 +29,7 @@ export default {
     try {
       const coachId = context.rootGetters.userId;
       const response = await fetch(
-        `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/contacts/${coachId}.json`
+        `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/contacts/${coachId}.json?auth=${context.rootGetters.token}`
       );
       const responseData = await response.json();
       if (!response.ok) {

@@ -9,7 +9,7 @@ export default {
       areas: payload.areas,
     };
     const response = await fetch(
-      `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json`,
+      `https://vue-manage-coach-default-rtdb.asia-southeast1.firebasedatabase.app/coaches/${userId}.json?auth=${context.rootGetters.token}`,
       {
         method: 'PUT',
         headers: {
