@@ -1,9 +1,17 @@
 <template>
   <base-container v-if="user">
     <h2>{{ user.fullName }}: Projects</h2>
-    <base-search v-if="hasProjects" @search="updateSearch" :search-term="enteredSearchTerm"></base-search>
+    <base-search
+      v-if="hasProjects"
+      @search="updateSearch"
+      :search-term="enteredSearchTerm"
+    ></base-search>
     <ul v-if="hasProjects">
-      <project-item v-for="prj in availableProjects" :key="prj.id" :title="prj.title"></project-item>
+      <project-item
+        v-for="prj in availableItems"
+        :key="prj.id"
+        :title="prj.title"
+      ></project-item>
     </ul>
     <h3 v-else>No projects found.</h3>
   </base-container>
@@ -13,7 +21,8 @@
 </template>
 
 <script>
-import { ref, computed, watch, toRefs } from 'vue';
+import { computed, watch, toRefs, onUpdated, onBeforeUpdate } from 'vue';
+import { useSearch } from '../../hooks/search';
 
 import ProjectItem from './ProjectItem.vue';
 
@@ -23,46 +32,67 @@ export default {
   },
   props: ['user'],
   setup(props) {
-    const enteredSearchTerm = ref('');
-    const activeSearchTerm = ref('');
+    console.log('setup in ProjectList');
 
-    const availableProjects = computed(function () {
-      if (activeSearchTerm.value) {
-        return props.user.projects.filter((prj) =>
-          prj.title.includes(activeSearchTerm.value)
-        );
-      }
-      return props.user.projects;
+    const projects = computed(function () {
+      console.log('projects = computed');
+      return props.user ? props.user.projects : [];
     });
+
+    const { enteredSearchTerm, availableItems, updateSearch } = useSearch(
+      projects,
+      'title'
+    );
+
+    onBeforeUpdate(() => {
+      console.log('onBeforeUpdate in ProjectList');
+    });
+
+    onUpdated(() => {
+      console.log('onUpdated in ProjectList');
+    });
+
+    // const enteredSearchTerm = ref('');
+    // const activeSearchTerm = ref('');
+
+    // const availableProjects = computed(function () {
+    //   if (activeSearchTerm.value) {
+    //     return props.user.projects.filter((prj) =>
+    //       prj.title.includes(activeSearchTerm.value)
+    //     );
+    //   }
+    //   return props.user.projects;
+    // });
 
     const hasProjects = computed(function () {
-      return props.user.projects && availableProjects.value.length > 0;
+      console.log('hasProjects = computed');
+      return props.user.projects && availableItems.value.length > 0;
     });
 
-    watch(enteredSearchTerm, function (newValue) {
-      setTimeout(() => {
-        if (newValue === enteredSearchTerm.value) {
-          activeSearchTerm.value = newValue;
-        }
-      }, 300);
-    });
+    // watch(enteredSearchTerm, function (newValue) {
+    //   setTimeout(() => {
+    //     if (newValue === enteredSearchTerm.value) {
+    //       activeSearchTerm.value = newValue;
+    //     }
+    //   }, 300);
+    // });
 
     // const propsWithRefs = toRefs(props);
     // const user = propsWithRefs.user;
 
     const { user } = toRefs(props);
-
     watch(user, function () {
-      enteredSearchTerm.value = '';
+      updateSearch('');
+      // enteredSearchTerm.value = '';
     });
 
-    function updateSearch(val) {
-      enteredSearchTerm.value = val;
-    }
+    // function updateSearch(val) {
+    //   enteredSearchTerm.value = val;
+    // }
 
     return {
       enteredSearchTerm,
-      availableProjects,
+      availableItems,
       hasProjects,
       updateSearch,
     };
