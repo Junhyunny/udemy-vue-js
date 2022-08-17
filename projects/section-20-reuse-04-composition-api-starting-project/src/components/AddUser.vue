@@ -19,7 +19,7 @@ export default {
     UserAlert,
   },
   setup() {
-    const data = userAlert();
+    const data = userAlert(true);
     return {
       ...data,
     };
